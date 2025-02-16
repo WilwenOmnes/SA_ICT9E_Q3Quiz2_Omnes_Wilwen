@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Q3 Quiz2</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+      summary {
+        background-color: pink;
+        padding: 10px;
+        cursor: pointer;
+        border-radius: 5px;
+      }  
+
+      label, p {
+        font-weight: bold;
+        color: black;
+        font-family: Tahoma;
+      }
+      
+      #ticket {
+        width: 100%;
+        max-width: 500px;
+        height: auto;
+        display: block;
+        margin: 0 auto;
+      }
+      
+      button {
+        font-family: Tahoma;
+      }
+      
+      body {
+        background-image: url('movie.jpg');
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-attachment: fixed;
+      }
+      
+      .box {
+        background-color: rgba(255, 255, 255, 0.7);
+        padding: 20px;
+        border-radius: 10px;
+      }
+
+      .seat-container {
+        display: inline-block;
+      }
+
+      .seat-image {
+        width: 100%;
+        max-width: 600px;
+        display: block;
+        margin: 0 auto;
+      }
+
+      .container-box {
+        background-color: rgba(255, 255, 255, 0.5);
+        padding: 40px;
+        border-radius: 15px;
+        max-width: 700px;
+        margin: 20px auto;
+      }
+    </style>
+</head>
+
+<body>
+    <br>
+    <center>
+        <div class="col-md-6" style="background-color: #710ecc; color: white; font-family: Rockwell;">
+          <script>  
+          document.write("<h1>Ticketing Center</h1>");
+          </script>
+        </div>
+    </center>
+    <hr>
+
+    <div class="container-box">
+        <center>
+            <div class="col-md-6">
+              <details ontoggle="message1()">
+                <summary><b>Personal Information</b><br><i id="message1"></i></summary>
+                <div class="box">
+                  <form id="personalInfoForm">
+                      <br>
+                      <label>Complete Name</label> 
+                      <input type="text" id="name" class="form-control" required> 
+                      <br>
+
+                      <!-- Updated Email Field to Only Accept Gmail -->
+                      <label>Email</label> 
+                      <input type="email" id="email" class="form-control" required pattern="[a-zA-Z0-9._%+-]+@gmail\.com" title="Please enter a valid Gmail address (e.g., example@gmail.com)"> 
+                      <br>
+
+                      <label>Password</label> 
+                      <input type="password" id="password" class="form-control" required> 
+                      <br>
+                      <label>Phone Number</label> 
+                      <input type="tel" id="phone" class="form-control" required> 
+                      <br>
+                      <label>Age</label> 
+                      <input type="number" id="age" class="form-control" min="1" required> 
+                      <br>     
+                      <button type="submit" class="btn btn-danger">SUBMIT INFO</button>
+                  </form>
+                </div>
+              </details>
+            </div>
+        </center>
+
+        <br>
+
+        <center>
+            <div class="col-md-6">
+              <details ontoggle="message2()">
+                <summary><b>Ticket Price</b><br><i id="message2"></i></summary>
+                <div class="box">
+                 <form>
+                      <br>
+                      <div class="seat-container">
+                          <img src="cinema.png" alt="Cinema Seating" class="seat-image">
+                      </div>
+                      <br>
+                      <label>Select Seat</label> 
+                      <select class="form-select" id="seat">
+                          <option value="none">Select</option>
+                          <script>
+                              for (let i = 1; i <= 94; i++) {
+                                  document.write('<option value="' + i + '">Seat ' + i + '</option>');
+                              }
+                          </script>
+                      </select>
+                      <br>
+                      <label>Choose an option</label> 
+                      <select class="form-select" id="discount">
+                          <option value="none">Select</option>
+                          <option value="0.2">Student</option>
+                          <option value="0">Regular</option>
+                      </select>
+                      <br><br>
+                      <button type="button" class="btn btn-danger" onclick="check_discount()">TICKET PRICE</button>
+                  </form>
+                </div>
+              </details>
+            </div>
+        </center>
+
+        <br>
+
+        <center>
+            <div class="col-md-6">
+              <details ontoggle="message3()">
+                <summary><b>Print Ticket</b><br><i id="message3"></i></summary>
+                <div class="box">
+                  <br>
+                  <img src="http://clipart-library.com/images_k/movie-ticket-transparent/movie-ticket-transparent-19.png" id="ticket">
+                  <button type="button" class="btn btn-danger" onclick="print_ticket()">PRINT TICKET</button>
+                  <br><br><br>
+                  <a href="index.html"><button type="submit" class="btn btn-info">Buy more tickets</button></a>
+                </div>
+              </details>
+            </div>
+        </center>
+    </div>
+
+    <hr>
+    <center>
+        <p>&copy; Wilwen Benedict P. Omnes</p>
+    </center>
+
+    <br>
+
+    <script>
+       function message1(){
+        document.getElementById('message1').innerHTML = "Fill out the form below."; 
+       }
+
+       function message2(){
+        document.getElementById('message2').innerHTML = "Check your ticket price."; 
+       }
+
+       function message3(){
+        document.getElementById('message3').innerHTML = "Select your ticket."; 
+       }
+
+       function print_ticket(){
+        window.alert('Check your email for your ticket. Thank you!');
+       }
+
+       function check_discount(){
+          var seat = parseInt(document.getElementById('seat').value);
+          var disc = parseFloat(document.getElementById('discount').value);
+          var base_price;
+
+          if (seat >= 1 && seat <= 10) {
+              base_price = 500;
+          } else if (seat >= 11 && seat <= 20) {
+              base_price = 450;
+          } else if (seat >= 21 && seat <= 30) {
+              base_price = 400;
+          } else if (seat >= 31 && seat <= 40) {
+              base_price = 350;
+          } else if (seat >= 41 && seat <= 50) {
+              base_price = 300;
+          } else if (seat >= 51 && seat <= 60) {
+              base_price = 280;
+          } else if (seat >= 61 && seat <= 70) {
+              base_price = 250;
+          } else if (seat >= 71 && seat <= 80) {
+              base_price = 230;
+          } else if (seat >= 81 && seat <= 94) {
+              base_price = 200;
+          } else {
+              window.alert('Please select a valid seat.');
+              return;
+          }
+
+          var final_rate = base_price - (disc * base_price);
+          window.alert('Your ticket price is ' + final_rate + ' pesos. Proceed to the next section.');
+       }
+    </script>
+
+</body>
+</html>
